@@ -1,6 +1,6 @@
 import {npolarApiBase} from '../npolarApiBase.js';
 //import {LocalUser} from '../LocalUser.js';
-import {Base64} from '../../util/Base64.js';
+//import {Base64} from '../../util/Base64.js';
 
 export class ApiRequest extends window.Request {
 
@@ -25,13 +25,13 @@ export class ApiRequest extends window.Request {
   }
 
 
-  static bearerToken() {
-    //return LocalUser.jwt();
-  }
-
-  static basicToken(username, password) {
-    return Base64.encode(`${username}:${password}`);
-  }
+  // static bearerToken() {
+  //   //return LocalUser.jwt();
+  // }
+  //
+  // static basicToken(username, password) {
+  //   return Base64.encode(`${username}:${password}`);
+  // }
 
 
   static basicAuthorization(username, password) {
