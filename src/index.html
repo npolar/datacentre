@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NPDC</title>
+
+  <style>
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Orbitron);
+  @import '/grid.css' screen;
+
+  </style>
+
+  <script nomodule src="/nomodule.js"></script>
+  <script>
+  // This script lacks @type="module" and is therefore executed before the module script below
+  function injectHeadScript(src) {
+    return new Promise(function(resolve, reject) {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+   });
+  }
+  injectHeadScript('https://unpkg.com/leaflet@1.2.0/dist/leaflet.js');
+
+  if (!('customElements' in window)) {
+    const customElementsPolyfillSrc = 'https://cdn.jsdelivr.net/npm/@webcomponents/custom-elements@1.0.4/custom-elements.min.js';
+    injectHeadScript(customElementsPolyfillSrc);
+  }
+  </script>
+
+  <script type="module">
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/workbox-sw.js').then(()=>{}).catch(error => { throw new Error(error) });
+  }
+  import {DatacentreApp} from '/DatacentreApp.js';
+  // customElements.whenConnected('datacentre-app', ()=> {
+  //   console.log("RUNNING");
+  // })
+  </script>
+
+</head>
+
+<body>
+<datacentre-app>
+
+  <!-- <npolar-api base="https://api.npolar.no"></npolar-api> -->
+  <datacentre-router></datacentre-router>
+
+  <datacentre-logo>
+    <style>
+    datacentre-logo {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      padding: 8px;
+      color: white;
+      background: black;
+    }
+    datacentre-logo a {
+      font-family: 'Orbitron'; font-size: 3.5vh;
+      //padding: 20px;
+      color: white;
+    }
+    datacentre-logo a:hover {
+      text-decoration: none;
+    }
+    </style>
+    <span>
+      <a href="/" id="logo-name">norwegian&nbsp;polar&nbsp;data&nbsp;centre</a>
+    </span>
+  </datacentre-logo>
+
+
+
+  <datacentre-displays>
+    <style> datacentre-displays, datacentre-displays a { color: black; background: white; display: grid; grid-template-columns: 1fr } </style>
+    <datacentre-fatal></datacentre-fatal>
+    <datacentre-error></datacentre-error>
+    <datacentre-warning></datacentre-warning>
+  </datacentre-displays>
+
+  <div class="container">
+
+    <!--<header role="banner">
+
+
+      <datacentre-header>
+
+        <datacentre-fatal>
+          <noscript lang="en">JavaScript is required (allow it in your browser to continue)</noscript>
+        </datacentre-fatal>
+
+        <header role="banner">
+          <nav>
+            <h1><a class="toggle open" href="#nav">[menu]</a> <a id="nav-toggle" href="#"><span></span></a> <a id="site-name" href="/">Norwegian&nbsp;Polar Data&nbsp;Centre</a></h1>
+          </nav>
+        </header>
+
+        <datacentre-error></datacentre-error>
+        <datacentre-warning></datacentre-warning>
+
+      </datacentre-header>
+    </header>
+
+    <nav id="nav" role="navigation">
+      <a class="toggle close" href=".">×</a>
+      Norwegian Polar Data Centre
+      <ul>
+        <li><a href="/" class="site-app">Home</a></li>
+        <li><a href="/dataset" class="site-app">Datasets</a></li>
+        <li><a href="/service" class="site-app">Services</a></li>
+        <li><a href="/app" class="site-app">Applications</a></li>
+      </ul>
+
+      LOGIN
+
+      HOME PAGE
+
+      <img width="128" src="http://www.npolar.no/npcms/export/sites/np/images/logos/norsk-polarinstitutt-logo-norsk-hvit.png">
+    </nav>-->
+
+    <main>
+
+      <!--APP-TITLE + APP-SPECIFIC NAV + CONTEXT-ACTIONS-->
+
+      <datacentre-main></datacentre-main>
+    </main>
+    </div>
+
+    <footer>
+      <datacentre-footer>
+
+        <style> datacentre-footer, datacentre-footer a { color: white;
+           background: black;
+           display: grid;
+           grid-template-columns: 1fr 1fr auto;
+           align-items: center;
+        } </style>
+        <!-- <span>
+          <img width="128" src="">
+        </span>
+        <div>Operated by the <a href="//npolar.no">Norwegian Polar Institute</a></div> -->
+      </datacentre-footer>
+    </footer>
+
+    <template id="datacentre-home">
+      <style></style>
+
+      <nav id="sitenav">
+        <datacentre-sitenav>
+          <style> datacentre-sitenav { font-size: 1.5vh;
+            color: black; background: white; }
+            datacentre-sitenav > ul {
+                list-style-type: none;
+                display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+          </style>
+          <ul>
+            <li><a href="/dataset" href="">Datasets</a></li>
+            <li><a href="/service">Services</a></li>
+            <li><a href="/crazy">Crazy</a></li>
+            <li><a href="/dataset" href="">Datasets</a></li>
+          </ul>
+        </datacentre-sitenav>
+      </nav>
+
+      <form action="./dataset">
+        <input id="q" name="q" value="" type="search" autofocus="" placeholder="Search dataset catalogue">
+        <input type="submit" class="btn" value="Search">
+      </form>
+
+
+      <news-band api="/dataset" sort="-released" heading="Datasets"></news-band>
+
+      <datacentre-promoted-applications>
+        <h2>Promoted applications</h2>
+        <card-band></card-band>
+      </datacentre-promoted-applications>
+      <datacentre-promoted-services>
+        <h2>Promoted services</h2>
+        <ul class="listing"></ul>
+      </datacentre-promoted-services>
+      <card-band class="band">
+        <card-element heading="Yohanna" image="http://placehold.it/300x200/DC143C/FFFFFF"></card-element>
+        <card-element heading="Yohanna" image="http://placehold.it/300x200/DC143C/FFFFFF"></card-element>
+        <card-element heading="Yohanna" image="http://placehold.it/300x200/DC143C/FFFFFF"></card-element>
+        <card-element heading="Yohanna" image="http://placehold.it/300x200/DC143C/FFFFFF"></card-element>
+      </card-band>
+    </template>
+
+    <template id="datacentre-dataset">
+      <style></style>
+    </template>
+
+</datacentre-app>
+
+</body>
+</html>
