@@ -1,0 +1,55 @@
+{
+  "name": "@npolar/datacentre",
+  "version": "0.0.0",
+  "description": "Norwegian Polar Data Centre (v3)",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "ECMAScript 2015",
+    "ECMAScript modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npolar/datacentre.git"
+  },
+  "license": "Unlicense",
+  "scripts": {
+    "dev": "rm -f src/workbox-sw.js && touch src/workbox-sw.js && yarn run live-server --port=7777 --host=localhost --no-browser --entry-file=index.html ./src",
+    "sw": "rm -f src/workbox-sw.js && yarn run workbox generate:sw && yarn run workbox inject:manifest",
+    "dev-sw": "yarn run sw && yarn run debug",
+    "debug": "yarn run live-server --port=7777 --host=localhost --no-browser ./src",
+    "deploy-test": "yarn test && rm -f src/workbox-sw.js && rsync --delete -avzP src/ app-test:/srv/http/datacentre/src",
+    "test": "yarn run ava --verbose",
+    "eslint": "yarn run eslint src"
+  },
+  "homepage": "https://github.com/npolar/datacentre",
+  "devDependencies": {
+    "ava": "^0",
+    "babel-eslint": "^8",
+    "babel-polyfill": "^6",
+    "babel-register": "^6",
+    "browser-env": "^3",
+    "eslint": "^4",
+    "live-server": "^1",
+    "yarn": "^1.3",
+    "workbox-cli": "2.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+  },
+  "ava": {
+    "require": [
+      "babel-polyfill",
+      "babel-register"
+    ],
+    "babel": {
+      "presets": [
+        "@ava/stage-4",
+        "@ava/transform-test-files"
+      ]
+    }
+  }
+}

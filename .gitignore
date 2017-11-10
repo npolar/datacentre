@@ -1,0 +1,9 @@
+node_modules
+yarn*
+NOTES.md
+TODO.md
+src/workbox-sw*
+src/service-worker*
+src/elements/buoy
+src/elements/footer
+src/elements/header
