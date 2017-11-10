@@ -3,7 +3,7 @@
 // https://workboxjs.org/
 // https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook
 
-importScripts('workbox-sw.prod.v2.1.0.js');
+importScripts('workbox-sw.prod.v2.1.1.js'); // @todo? detect current version?
 const workboxSW = new WorkboxSW({clientsClaim: true, skipWaiting: true});
 
 // Leave the following line with empty array as argument
