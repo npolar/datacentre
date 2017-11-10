@@ -1,6 +1,5 @@
 import {ApiRequest} from '../../../npolar-api/fetch/ApiRequest.js';
-import {searchParams} from '../../../browser/searchParams.js';
-import {MicroCard} from '../card/MicroCard.js';
+
 
 // Thanks https://github.com/zvakanaka/view-json
 if ('attachShadow' in document.head) {
