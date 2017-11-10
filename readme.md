@@ -8,14 +8,15 @@ The fastest [data portal](https://data.npolar.no) on the planet, created with mo
 * CSS grid
 
 ## Requirements
-There are 0 dependencies, but you need a browser from 2017 or later to run the application
+There are 0 dependencies, but you need a browser from 2017 or later to run the application,
+and <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://yarnpkg.com/lang/en/">yarn</a> to run the optional development tools
 
 ## Development
-Install with `yarn install` and run
+After `git clone`ing the repo, install dev deps with
+`yarn` and run
 `yarn dev` to start a live-server on http://localhost:7777
-(echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p)
 
-To develop with service workers (careful: cache invalidation is not yet implemented)
+To develop with service workers (careful: cache invalidation is not-yet implemented)
 `yarn dev-sw`
 
 ## Testing
@@ -23,4 +24,4 @@ To develop with service workers (careful: cache invalidation is not yet implemen
 `yarn test`
 
 ## Contributing
-Please do, but create a git branch
+Please do, but create a git branch for all new features
