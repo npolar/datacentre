@@ -12,11 +12,11 @@ export class ApiRequest extends window.Request {
       init.headers = new Headers();
     }
     if (!init.headers.has('Authorization')) {
-      const bearerToken = ApiRequest.bearerToken();
-      if (bearerToken) {
-        // @todo validate token
-        init.headers.append('Authorization', `Bearer ${bearerToken}`);
-      }
+      //const bearerToken = ApiRequest.bearerToken();
+      // if (bearerToken) {
+      //   // @todo validate token
+      //   init.headers.append('Authorization', `Bearer ${bearerToken}`);
+      // }
     }
     if (!init.headers.has('Accept')) {
       init.headers.append('Accept', 'application/json');
