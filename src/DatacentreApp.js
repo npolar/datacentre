@@ -37,11 +37,22 @@ async function datacentreRoutes() {
   ];
 
   // Add dynamic routes
-  // const serviceAllPaths ='/npolar-api/npolar-apis.json';
-  // @todo cache, alsor for browsers with no service worker...
-  const serviceAllPaths = `/service/_all?fields=path&rev=2017-11-10`;
-  return ApiRequest.get(serviceAllPaths)
-    .then(services => {
+
+  const serviceAllPaths = `/service/_all?fields=path`;
+  let p;
+
+  if (p=localStorage.getItem('serviceAllPaths')) {
+    // @todo rewrite to reject if cache is >= 1d?
+    p = Promise.resolve(JSON.parse(p).services);
+  } else {
+    const isodate = new Date().toJSON().split('T')[0];
+    p = ApiRequest.get(`${serviceAllPaths}&rev=${isodate}`);
+    p.then(services => {
+      localStorage.setItem('serviceAllPaths', JSON.stringify({updated: isodate, services }));
+    })
+  }
+
+  return p.then(services => {
       services.filter(s => /*@todo*/true).forEach(api => {
 
         // Generic HTML and JSON views
