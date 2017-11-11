@@ -1,4 +1,5 @@
 import {JsonPresenter} from './JsonPresenter.js';
+import {extractName} from '../../json-ld/extractName.js';
 export class HtmlPresenter extends JsonPresenter {
 
 
@@ -6,7 +7,7 @@ export class HtmlPresenter extends JsonPresenter {
     const article = this.querySelector('article');
     const div = document.createElement('div');
     article.appendChild(div);
-    div.textContent = JSON.stringify(d, this.replace, 2);
+    div.textContent = extractName(d);
   }
 
   template() {
